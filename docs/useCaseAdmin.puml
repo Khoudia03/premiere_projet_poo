@@ -1,0 +1,209 @@
+@startuml Diagramme Use Case admin Boutique
+left to right direction
+
+actor "Admin Boutique" as user
+
+rectangle "storage_manager" {
+    usecase "consulter tableau de bord" as TB
+    usecase "gérer vente / POS" as GV
+    usecase "consulter gestion dette" as CGD
+    usecase "gérer approvisionnement" as GA
+    usecase "gérer produits et tiers" as GPT
+    usecase "s'authentifier" as connex
+    usecase "deconnecter" as D
+
+    usecase "voir info profil" as VIP
+    usecase "voir statistiques" as stat
+    usecase "lister ventes recentes" as LVR
+    usecase "listes appros attendus du jour" as LAAJ
+
+    usecase "liste dette du jour" as LDJ
+    usecase "liste produit rupture stock" as LPRS
+
+    usecase "voir dette du jour" as VDJ
+    usecase "voir produit rupture stock" as VPRS
+
+    usecase "liste livraison du jour" as LLJ
+
+    usecase "liste clients debiteurs" as LCD
+    usecase "liste fournisseurs à solder" as LFS
+    usecase "voir client debiteur" as VCD
+    usecase "voir solde fournisseur" as VSF
+
+    usecase "voir dettes" as VD
+    usecase "rembourser dettes" as RD
+    usecase "voir details fournisseur à solder" as VFAS
+    usecase "payer fournisseur" as PF
+    
+    usecase "voir approvisionnement" as VA
+    usecase "valider BL" as VBL
+    usecase "selectionner fournisseur" as SF 
+    usecase "saisie quantite à commander" as SQC 
+    usecase "saisie cout d'achat" as SCA
+    
+
+    usecase "voir statistiques vente" as VSV
+    usecase "liste vente commande" as LVC
+    usecase "formulaire d'enregistrement nouvelle vente" as FENV
+    usecase "voir lignes vente" as VLV
+    usecase "valider vente" as VV
+
+    usecase "selectionner client" as SC 
+    usecase "ajouter articles" as AA 
+    usecase "selectionner mode paiement" as SMP 
+    usecase "saisie montant à verser" as SMV 
+    usecase "selectionner article" as SA
+    usecase "saisie quantite appro" as SQTA 
+
+
+    usecase "liste dettes active" as LDA
+    usecase "statistique dettes" as SD 
+    usecase "filtrer par client" as FC
+    usecase "voir article vente" as VAV
+    usecase "voir paiement dette" as VPD 
+    usecase "voir rebourser dette" as VRD
+    usecase "enregistrer remboursement" as ER
+    usecase "saisie montant à versé" as SMV 
+    usecase "selectionner canal paiement" as SCP
+
+
+    usecase "statistiques approvisionnement" as SAAP 
+    usecase "voir liste bordeau de livraison" as VLBL
+    usecase "voir ligne appro" as VLA 
+    usecase "voir receptionner" as VR 
+    usecase "valider reception en stock" as VRS 
+    usecase "saisie quantite recu" as SQTR
+
+
+    usecase "statistique produits tiers" as SPT 
+    usecase "voir gestion produit" as VGP
+    usecase "liste catalogue courant" as LCC 
+    usecase "formulaire enregistrement produit" as FEP
+    usecase "filtrer par produit" as FP 
+    usecase "enregistrer produit" as EP 
+    usecase "saisie nom article" as SNA  
+    usecase "saisie prix vente" as SPV
+    usecase "saisie stock initiale" as SSI
+
+    usecase "voir gestion client" as VGC 
+    usecase "voir gestion fournisseur" as VGF 
+    usecase "liste repertoire client" as LRC 
+    usecase "voir formulaire d'enregistrement client" as VFEC
+    usecase "enregistrer client" as EC 
+    usecase "saisie nom client" as SNC 
+    usecase "saisie prenom client" as SPC 
+    usecase "saisie telephone client" as STC
+    usecase "saisie email client" as SEC
+    usecase "saisie limite credit client" as SLCC
+
+    usecase "liste repertoire fournisseur" as LRF 
+    usecase "voir formulaire enregistrement fournisseur" as VFEF
+    usecase "enregistrer fournisseur" as EF 
+    usecase "saisie nom entreprise" as SNE 
+    usecase "saisie telephone entreprise" as STE 
+    usecase "saisie adresse entreprise" as SAE 
+    usecase "saisie email entreprise" as SEE 
+}
+
+user --> TB
+user --> GV
+user --> GA
+user --> CGD
+user --> GPT
+user --> D
+TB ..> connex: <<include>>
+GV ..> connex: <<include>>
+GA ..> connex: <<include>>
+CGD ..> connex: <<include>>
+GPT ..> connex: <<include>>
+D ..> connex: <<include>>
+
+TB ..> stat: <<include>>
+TB ..> LVR: <<include>>
+TB ..> LLJ: <<include>>
+TB ..> VIP: <<include>>
+TB ..> LAAJ: <<include>>
+LAAJ <.. LDJ: <<extend>>
+LAAJ <.. LPRS: <<extend>>
+LDJ ..> VDJ: <<include>>
+LPRS ..> VPRS: <<include>>
+LLJ <.. LCD: <<extend>>
+LLJ <.. LFS: <<extend>>
+LCD ..> VCD: <<include>>
+LFS ..> VSF: <<include>>
+LCD <.. VD: <<extend>>
+VD <.. RD: <<extend>>
+LFS <.. VFAS: <<extend>>
+LFS <.. PF: <<extend>>
+LPRS <.. VA: <<extend>>
+VA <.. VBL: <<extend>>
+VBL ..> SF: <<include>>
+VBL ..> SQC: <<include>>
+VBL ..> SCA: <<include>>
+
+GV ..> VSV: <<include>>
+GV ..> LVC: <<include>>
+GV ..> FENV: <<include>>
+GV ..> FENV: <<include>>
+LVC <.. VLV: <<extend>>
+FENV <.. VV: <<extend>>
+
+VV ..> SC: <<include>>
+VV ..> AA: <<include>>
+VV ..> SMP: <<include>>
+VV ..> SMV: <<include>>
+AA ..> SA: <<include>>
+AA ..> SQTA: <<include>>
+
+
+CGD ..> LDA: <<include>>
+CGD ..> SD: <<include>>
+
+LDA <.. VAV: <<extend>>
+LDA <.. VPD: <<extend>>
+LDA <.. VRD: <<extend>>
+LDA <.. FC: <<extend>>
+VRD <.. ER: <<extend>>
+ER ..> SMV: <<include>>
+ER ..> SCP: <<include>>
+
+
+GA ..> SAAP: <<include>>
+GA ..> VLBL: <<include>>
+VLBL <.. VLA: <<extend>>
+VLBL <.. VR: <<extend>>
+VR <.. VRS: <<extend>>
+VRS ..> SQTR: <<include>>
+
+
+
+GPT ..> SPT: <<include>>
+GPT ..> VGP: <<include>>
+VGP ..> LCC: <<include>>
+VGP ..> FEP: <<include>>
+LCC <.. FP: <<extend>>
+FEP <.. EP: <<extend>>
+EP ..> SNA: <<include>>
+EP ..> SPV: <<include>>
+EP ..> SSI: <<include>>
+
+VGP <.. VGC: <<extend>>
+VGP <.. VGF: <<extend>>
+VGC ..> LRC: <<include>>
+VGC ..> VFEC: <<include>>
+VFEC <.. EC: <<extend>>
+EC ..> SNC: <<include>>
+EC ..> SPC: <<include>>
+EC ..> STC: <<include>>
+EC ..> SEC: <<include>>
+EC ..> SLCC: <<include>>
+
+VGF ..> LRF: <<include>>
+VGF ..> VFEF: <<include>>
+VFEF <.. EF: <<extend>>
+EF ..> SNE: <<include>>
+EF ..> SAE: <<include>>
+EF ..> STE: <<include>>
+EF <.. SEE: <<extend>>
+
+@enduml

@@ -1,0 +1,75 @@
+@startuml use case inventaire
+left to right direction
+
+rectangle "storage_manager" {
+
+    usecase "gérer produits et tiers" as GPT
+    usecase "s'authentifier" as connex
+    usecase "deconnecter" as D
+
+    usecase "statistique produits tiers" as SPT 
+    usecase "voir gestion produit" as VGP
+    usecase "liste catalogue courant" as LCC 
+    usecase "formulaire enregistrement produit" as FEP
+    usecase "filtrer par produit" as FP 
+    usecase "enregistrer produit" as EP 
+    usecase "saisie nom article" as SNA  
+    usecase "saisie prix vente" as SPV
+    usecase "saisie stock initiale" as SSI
+
+    usecase "voir gestion client" as VGC 
+    usecase "voir gestion fournisseur" as VGF 
+    usecase "liste repertoire client" as LRC 
+    usecase "voir formulaire d'enregistrement client" as VFEC
+    usecase "enregistrer client" as EC 
+    usecase "saisie nom client" as SNC 
+    usecase "saisie prenom client" as SPC 
+    usecase "saisie telephone client" as STC
+    usecase "saisie email client" as SEC
+    usecase "saisie limite credit client" as SLCC
+
+    usecase "liste repertoire fournisseur" as LRF 
+    usecase "voir formulaire enregistrement fournisseur" as VFEF
+    usecase "enregistrer fournisseur" as EF 
+    usecase "saisie nom entreprise" as SNE 
+    usecase "saisie telephone entreprise" as STE 
+    usecase "saisie adresse entreprise" as SAE 
+    usecase "saisie email entreprise" as SEE 
+}
+
+user --> GPT
+user --> D
+
+GPT ..> connex: <<include>>
+D ..> connex: <<include>>
+
+GPT ..> SPT: <<include>>
+GPT ..> VGP: <<include>>
+VGP ..> LCC: <<include>>
+VGP ..> FEP: <<include>>
+LCC <.. FP: <<extend>>
+FEP <.. EP: <<extend>>
+EP ..> SNA: <<include>>
+EP ..> SPV: <<include>>
+EP ..> SSI: <<include>>
+
+VGP <.. VGC: <<extend>>
+VGP <.. VGF: <<extend>>
+VGC ..> LRC: <<include>>
+VGC ..> VFEC: <<include>>
+VFEC <.. EC: <<extend>>
+EC ..> SNC: <<include>>
+EC ..> SPC: <<include>>
+EC ..> STC: <<include>>
+EC ..> SEC: <<include>>
+EC ..> SLCC: <<include>>
+
+VGF ..> LRF: <<include>>
+VGF ..> VFEF: <<include>>
+VFEF <.. EF: <<extend>>
+EF ..> SNE: <<include>>
+EF ..> SAE: <<include>>
+EF ..> STE: <<include>>
+EF <.. SEE: <<extend>>
+
+@enduml

@@ -1,0 +1,70 @@
+@startuml use case charge de vente
+left to right direction
+
+actor "Admin Boutique" as user
+
+rectangle "storage_manager" {
+    usecase "gérer vente / POS" as GV
+    usecase "consulter gestion dette" as CGD
+    usecase "s'authentifier" as connex
+    usecase "deconnecter" as D
+
+    usecase "voir statistiques vente" as VSV
+    usecase "liste vente commande" as LVC
+    usecase "formulaire d'enregistrement nouvelle vente" as FENV
+    usecase "voir lignes vente" as VLV
+    usecase "valider vente" as VV
+
+    usecase "selectionner client" as SC 
+    usecase "ajouter articles" as AA 
+    usecase "selectionner mode paiement" as SMP 
+    usecase "saisie montant à verser" as SMV 
+    usecase "selectionner article" as SA
+    usecase "saisie quantite appro" as SQTA 
+
+    usecase "liste dettes active" as LDA
+    usecase "statistique dettes" as SD 
+    usecase "filtrer par client" as FC
+    usecase "voir article vente" as VAV
+    usecase "voir paiement dette" as VPD 
+    usecase "voir rebourser dette" as VRD
+    usecase "enregistrer remboursement" as ER
+    usecase "saisie montant à versé" as SMV 
+    usecase "selectionner canal paiement" as SCP
+
+  
+}
+
+user --> GV
+user --> CGD
+user --> D
+
+GV ..> connex: <<include>>
+D ..> connex: <<include>>
+CGD ..> connex: <<include>>
+
+GV ..> VSV: <<include>>
+GV ..> LVC: <<include>>
+GV ..> FENV: <<include>>
+LVC <.. VLV: <<extend>>
+FENV <.. VV: <<extend>>
+
+VV ..> SC: <<include>>
+VV ..> AA: <<include>>
+VV ..> SMP: <<include>>
+VV ..> SMV: <<include>>
+AA ..> SA: <<include>>
+AA ..> SQTA: <<include>>
+
+CGD ..> LDA: <<include>>
+CGD ..> SD: <<include>>
+
+
+LDA <.. VAV: <<extend>>
+LDA <.. VPD: <<extend>>
+LDA <.. VRD: <<extend>>
+LDA <.. FC: <<extend>>
+VRD <.. ER: <<extend>>
+ER ..> SMV: <<include>>
+ER ..> SCP: <<include>>
+@enduml

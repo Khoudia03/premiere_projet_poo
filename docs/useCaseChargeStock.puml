@@ -1,0 +1,57 @@
+@startuml use case charge de stock
+left to right direction
+
+rectangle "storage_manager" {
+
+    usecase "gérer approvisionnement" as GA
+    usecase "gérer produits et tiers" as GPT
+    usecase "s'authentifier" as connex
+    usecase "deconnecter" as D
+
+
+    usecase "statistiques approvisionnement" as SAAP 
+    usecase "voir liste bordeau de livraison" as VLBL
+    usecase "voir ligne appro" as VLA 
+    usecase "voir receptionner" as VR 
+    usecase "valider reception en stock" as VRS 
+    usecase "saisie quantite recu" as SQTR
+
+
+    usecase "statistique produits tiers" as SPT 
+    usecase "voir gestion produit" as VGP
+    usecase "liste catalogue courant" as LCC 
+    usecase "formulaire enregistrement produit" as FEP
+    usecase "filtrer par produit" as FP 
+    usecase "enregistrer produit" as EP 
+    usecase "saisie nom article" as SNA  
+    usecase "saisie prix vente" as SPV
+    usecase "saisie stock initiale" as SSI
+}
+
+user --> GA
+user --> GPT
+user --> D
+
+GA ..> connex: <<include>>
+GPT ..> connex: <<include>>
+D ..> connex: <<include>>
+
+GA ..> SAAP: <<include>>
+GA ..> VLBL: <<include>>
+VLBL <.. VLA: <<extend>>
+VLBL <.. VR: <<extend>>
+VR <.. VRS: <<extend>>
+VRS ..> SQTR: <<include>>
+
+GPT ..> SPT: <<include>>
+GPT ..> VGP: <<include>>
+VGP ..> LCC: <<include>>
+VGP ..> FEP: <<include>>
+LCC <.. FP: <<extend>>
+FEP <.. EP: <<extend>>
+EP ..> SNA: <<include>>
+EP ..> SPV: <<include>>
+EP ..> SSI: <<include>>
+
+
+@enduml
