@@ -13,3 +13,8 @@ Nom & Prénom : [Khoudia Cisse]
 - **Ce qui a été fait** : j'ai créé une base de donnéé nommée gestion_approvisionnement_dette dans Postgres et j'ai créé les tables avec les clés étrangers (schéma relationnel). J'ai aussi installé sqlite3 ensuite créé une connexion nommée ConnexionStep1.2 et comme DATABASE PATH gestion_appro_dette et ensuite créer toutes les tables que j'avais dans ma base gestion_approvisionnement_dette(Postgres).
 
 - **Difficultés / Obstacles** : Je n'arrivais pas à créer une autre connexion dans postgres parceque j'ai atteint le nombre limit de connexion dans l'extension DataBase Client . Du coup j'ai créé ma base gestion_approvisionnement_dette(Postgres) à partir d'une connexion déjà existant.
+
+
+- **Heure de réalisation** : 22H20 - 23H30
+- **Ce qui a été fait** : J'ai créé dans mon projet un dossier src et Core dans src et un fichier Database.php pour créer une classe connexion singleton avec fallback
+- **Difficultés / Obstacles** : Je comprenais pas carrément le mot singleton mais apres avoir faire des recherches j'ai compris l'importance et le sens du singleton
