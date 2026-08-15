@@ -107,12 +107,4 @@ Appro "0..*" --> "1" Utilisateur
 Commande "0..*" --> "1" Utilisateur 
 
 
-
-
-
-
-
-
-
-
 @enduml
