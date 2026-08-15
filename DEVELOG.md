@@ -18,3 +18,8 @@ Nom & Prénom : [Khoudia Cisse]
 - **Heure de réalisation** : 22H20 - 23H30
 - **Ce qui a été fait** : J'ai créé dans mon projet un dossier src et Core dans src et un fichier Database.php pour créer une classe connexion singleton avec fallback
 - **Difficultés / Obstacles** : Je comprenais pas carrément le mot singleton mais apres avoir faire des recherches j'ai compris l'importance et le sens du singleton
+
+
+- **Heure de réalisation** : 00H30 - 00H50
+- **Ce qui a été fait** : J'ai ajouter les captures d'ecran des diagrammes de usecase et diagramme de classe et aussi j'ai modifié je nom de la base de donnée de postgres car j'avais pas bien écrit le nom de la base.
+- **Difficultés / Obstacles** : Votre message disant de mettre les captures des diagrammes dans le dossier je ne l'ai tarement vue et aussi j'ai sue que dans la classe Database j'avais mis le même nom de base de données dans postgres et sqlite alors que c'était pas le même alors que la classe DataBase doit essayé la connexion avac la base dans postgres et s'il y'a erreur il essaie avec sqlite.
