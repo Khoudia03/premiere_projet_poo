@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model\Entity;
+
 class Produit {
     private int $id;
     private string $libelle;

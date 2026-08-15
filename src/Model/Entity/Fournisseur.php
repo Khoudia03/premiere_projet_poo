@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model\Entity;
+
 class Fournisseur {
     private int $id;
     private string $nom;
