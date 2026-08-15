@@ -108,3 +108,6 @@ CREATE TABLE reglements (
     montant NUMERIC(12,2) NOT NULL CHECK (montant > 0),
     commande_id INT NOT NULL REFERENCES commandes(id) ON DELETE CASCADE
 );
+
+ SELECT id,libelle,prix_vente,stock_initial FROM produits ORDER BY id DESC;
+ 
