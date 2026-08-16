@@ -110,4 +110,18 @@ CREATE TABLE reglements (
 );
 
  SELECT id,libelle,prix_vente,stock_initial FROM produits ORDER BY id DESC;
- 
+
+ BEGIN;
+ SELECT id,libelle,prix_vente,stock_initial FROM produits WHERE id = :id;
+ SELECT id,limite_credit FROM clients WHERE id = :id;
+ SELECT id FROM utilisateurs WHERE id = :id;
+ SELECT id FROM modes_paiement WHERE id = :id;
+ INSERT INTO commandes (date_commande,montant_initial,avance,client_id,utilisateur_id,mode_paiement_id)
+VALUES (CURRENT_DATE,:montant_initial,:avance,:client_id,:utilisateur_id,:mode_paiement_id)
+RETURNING id;
+INSERT INTO ligne_commandes (commande_id,produit_id,qte_commande,prix_reel)
+VALUES (:commande_id,:produit_id,:qte_commande,:prix_reel);
+UPDATE produits SET stock_initial = stock_initial - :quantite WHERE id = :id AND stock_initial >= :quantite;
+INSERT INTO reglements (date,montant,commande_id)
+VALUES (CURRENT_DATE,:montant,:commande_id);
+COMMIT;

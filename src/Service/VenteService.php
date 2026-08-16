@@ -88,7 +88,7 @@ class VenteService
                 throw new Exception("L'utilisateur n'existe pas.");
             }
 
-            $sqlMode = "SELECT id FROM mode WHERE id = :id";
+            $sqlMode = "SELECT id FROM mode_paiement WHERE id = :id";
             $stmtMode = $this->pdo->prepare($sqlMode);
             $stmtMode->execute([
                 'id' => $modePaiementId
