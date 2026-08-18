@@ -1,11 +1,18 @@
 <?php
 
 class StatutAppro {
-    private int $id;
+    public int $id;
     private string $nom;
 
-    public function getId(): ?int
+    public function getNom(): ?int
     {
-        return $this->id;
+        return $this->nom;
+    }
+    public function setNom(string $nom): void 
+    {
+        if($nom == 'RECEPTIONNE' || $nom == 'EN ATTENTE' || $nom == 'EN COURS')
+        {
+            $this->nom = $nom;
+        }
     }
 }

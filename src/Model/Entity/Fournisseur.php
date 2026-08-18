@@ -2,15 +2,32 @@
 
 namespace App\Model\Entity;
 
-class Fournisseur {
-    private int $id;
-    private string $nom;
-    private string $email;
-    private string $tel;
-    private string $adresse;
 
-    public function getId(): ?int
+class Fournisseur
+{
+    public int $id;
+    public string $nom;
+    public ?string $email;
+    public ?string $tel;
+    public ?string $adresse;
+    private array $approvisionnements = [];
+
+    public function __construct(int $id,string $nom,?string $email,?string $tel,?string $adresse)
     {
-        return $this->id;
+        $this->id = $id;
+        $this->nom = $nom;
+        $this->email = $email;
+        $this->tel = $tel;
+        $this->adresse = $adresse;
+    }
+
+    public function getApprovisionnements(): array
+    {
+        return $this->approvisionnements;
+    }
+
+    public function ajouterApprovisionnement(Approvisionnement $appro): void
+    {
+        $this->approvisionnements[] = $appro;
     }
 }

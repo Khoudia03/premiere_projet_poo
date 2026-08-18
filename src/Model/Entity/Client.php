@@ -2,56 +2,43 @@
 
 namespace App\Model\Entity;
 
-class Client {
-    private int $id;
-    private string $nom;
-    private string $prenom;
-    private string $email;
-    private string $tel;
-    private float $limite_credit;
+class Client
+{
+    public int $id;
+    public string $nom;
+    public string $prenom;
+    public ?string $email;
+    public ?string $tel;
+    private float $limiteCredit;
+    private array $commandes = [];
 
-    public function __construct(int $id, string $nom, string $prenom, string $email, string $tel, float $limite_credit)
+    public function __construct(int $id,string $nom,string $prenom,?string $email,?string $tel,float $limiteCredit) 
     {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->tel = $tel;
-        $this->limite_credit = $limite_credit;
+        $this->limiteCredit = $limiteCredit;
     }
 
-    public function getId(): ?int
+    public function getLimiteCredit(): float { return $this->limiteCredit; }
+
+    public function setLimiteCredit(float $limiteCredit): void
     {
-        return $this->id;
+        if ($limiteCredit >= 0) 
+        {
+            $this->limiteCredit = $limiteCredit;
+        }
     }
 
-    public function getNom(): string
+    public function getCommandes(): array
     {
-        return $this->nom;
+        return $this->commandes;
     }
 
-    public function getPrenom(): string
+    public function ajouterCommande(Commande $commande): void
     {
-        return $this->prenom;
-    }
-
-    public function getNomComplet(): string
-    {
-        return $this->prenom.' '.$this->nom;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function getTel(): string
-    {
-        return $this->tel;
-    }
-
-    public function getLimiteCredit(): float
-    {
-        return $this->limite_credit;
+        $this->commandes[] = $commande;
     }
 }

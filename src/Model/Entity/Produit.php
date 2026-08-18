@@ -2,37 +2,60 @@
 
 namespace App\Model\Entity;
 
-class Produit {
-    private int $id;
-    private string $libelle;
-    private float $prix_vente;
-    private int $stock_initial;
+class Produit
+{
+    public int $id;
+    public string $libelle;
+    private float $prixVente;
+    private int $stockInitial;
+    private array $lignesCommande = [];
+    private array $lignesAppro = [];
 
-    public function __construct(int $id, string $libelle, float $prix_vente, int $stock_initial)
+    public function __construct(int $id,string $libelle,float $prixVente,int $stockInitial) 
     {
         $this->id = $id;
         $this->libelle = $libelle;
-        $this->prix_vente = $prix_vente;
-        $this->stock_initial = $stock_initial;
+        $this->prixVente = $prixVente;
+        $this->stockInitial = $stockInitial;
     }
 
-    public function getId(): ?int
+    public function getPrixVente(): float { return $this->prixVente; }
+
+    public function setPrixVente(float $prixVente): void
     {
-        return $this->id;
+        if ($prixVente > 0) 
+        {
+            $this->prixVente = $prixVente;
+        }
     }
 
-    public function getLibelle(): string
+    public function getStockInitial(): int { return $this->stockInitial; }
+
+    public function setStockInitial(int $stockInitial): void
     {
-        return $this->libelle;
+        if ($stockInitial > 0) 
+        {
+            $this->stockInitial = $stockInitial;
+        }
     }
 
-    public function getPrixVente(): float
+    public function getLignesCommande(): array
     {
-        return $this->prix_vente;
+        return $this->lignesCommande;
     }
 
-    public function getStockInitial(): int
+    public function ajouterLigneCommande(LigneCommande $ligne): void
     {
-        return $this->stock_initial;
+        $this->lignesCommande[] = $ligne;
+    }
+
+    public function getLignesAppro(): array
+    {
+        return $this->lignesAppro;
+    }
+
+    public function ajouterLigneAppro(LigneAppro $ligne): void
+    {
+        $this->lignesAppro[] = $ligne;
     }
 }

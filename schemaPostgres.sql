@@ -108,20 +108,29 @@ CREATE TABLE reglements (
     montant NUMERIC(12,2) NOT NULL CHECK (montant > 0),
     commande_id INT NOT NULL REFERENCES commandes(id) ON DELETE CASCADE
 );
+ALTER TABLE reglements
+ADD COLUMN dette_id INT REFERENCES dettes(id) ON DELETE CASCADE;
+ALTER TABLE reglements
+ADD COLUMN mode_paiement_id INT REFERENCES modes_paiement(id);
 
+CREATE TABLE dettes (
+    id SERIAL PRIMARY KEY,
+    montant_initial NUMERIC(12,2) NOT NULL,
+    montant_restant NUMERIC(12,2) NOT NULL,
+    date_creation DATE NOT NULL DEFAULT CURRENT_DATE,
+    date_echeance DATE,
+    statut VARCHAR(30) NOT NULL,
+    commande_id INT NOT NULL UNIQUE,
+
+    FOREIGN KEY (commande_id)
+        REFERENCES commandes(id)
+        ON DELETE CASCADE,
+
+    CHECK (montant_initial >= 0),
+    CHECK (montant_restant >= 0),
+    CHECK (montant_restant <= montant_initial)
+);
+ALTER TABLE dettes
+ADD CONSTRAINT check_statut_dette
+CHECK (statut IN ('Solde', 'Non solde'));
  SELECT id,libelle,prix_vente,stock_initial FROM produits ORDER BY id DESC;
-
- BEGIN;
- SELECT id,libelle,prix_vente,stock_initial FROM produits WHERE id = :id;
- SELECT id,limite_credit FROM clients WHERE id = :id;
- SELECT id FROM utilisateurs WHERE id = :id;
- SELECT id FROM modes_paiement WHERE id = :id;
- INSERT INTO commandes (date_commande,montant_initial,avance,client_id,utilisateur_id,mode_paiement_id)
-VALUES (CURRENT_DATE,:montant_initial,:avance,:client_id,:utilisateur_id,:mode_paiement_id)
-RETURNING id;
-INSERT INTO ligne_commandes (commande_id,produit_id,qte_commande,prix_reel)
-VALUES (:commande_id,:produit_id,:qte_commande,:prix_reel);
-UPDATE produits SET stock_initial = stock_initial - :quantite WHERE id = :id AND stock_initial >= :quantite;
-INSERT INTO reglements (date,montant,commande_id)
-VALUES (CURRENT_DATE,:montant,:commande_id);
-COMMIT;

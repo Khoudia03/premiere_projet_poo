@@ -1,13 +1,20 @@
 <?php
 
 class Reglement {
-    private int $id;
-    private DateTime $date;
+    public int $id;
+    public DateTime $date;
     private float $montant;
-    private Commande $commande_id;
+    public Commande $commande_id;
 
-    public function getId(): ?int
+    public function getMontant(): ?int
     {
-        return $this->id;
+        return $this->montant;
+    }
+    public function setMontant(float $montant): void 
+    {
+        if($montant >= 0)
+        {
+            $this->montant = $montant;
+        }
     }
 }
