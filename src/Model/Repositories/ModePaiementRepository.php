@@ -7,18 +7,13 @@ use PDO;
 
 class ModePaiementRepository
 {
-    private PDO $pdo;
-
-    public function __construct()
+    public static function getAllModePaiement(): array
     {
-        $this->pdo = Database::getInstance()->getConnection();
-    }
+        $pdo = Database::getInstance()->getConnection();
 
-    public function getAllModePaiement(): array
-    {
         $sql = "SELECT id, mode FROM mode_paiement ORDER BY id";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
         $modes = [];

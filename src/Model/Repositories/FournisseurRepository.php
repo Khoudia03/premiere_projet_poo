@@ -8,27 +8,16 @@ use PDO;
 
 class FournisseurRepository
 {
-    private PDO $pdo;
-
-    public function __construct()
+    public static function getAllFournisseur(): array
     {
-        $this->pdo = Database::getInstance()->getConnection();
-    }
+        $pdo = Database::getInstance()->getConnection();
 
-    public function getAllFournisseur(): array
-    {
-        $sql = "
-            SELECT
-                id,
-                nom,
-                email,
-                tel,
-                adresse
-            FROM fournisseurs
-            ORDER BY id DESC
-        ";
+        $sql = "SELECT id,nom,email,tel,adresse
+                FROM fournisseurs
+                ORDER BY id DESC
+                ";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
         $fournisseurs = [];

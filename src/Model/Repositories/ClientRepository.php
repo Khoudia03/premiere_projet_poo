@@ -8,28 +8,16 @@ use PDO;
 
 class ClientRepository
 {
-    private PDO $pdo;
-
-    public function __construct()
+    public static function getAllClient(): array
     {
-        $this->pdo = Database::getInstance()->getConnection();
-    }
+        $pdo = Database::getInstance()->getConnection();
 
-    public function getAllClient(): array
-    {
-        $sql = "
-            SELECT
-                id,
-                nom,
-                prenom,
-                email,
-                tel,
-                limite_credit
-            FROM clients
-            ORDER BY id DESC
-        ";
+        $sql = "SELECT id,nom,prenom,email,tel,limite_credit
+                FROM clients
+                ORDER BY id DESC
+                ";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
         $clients = [];
