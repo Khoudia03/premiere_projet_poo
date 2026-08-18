@@ -10,27 +10,15 @@ use Exception;
 
 class POSController
 {
-    private VenteService $venteService;
-    private ProduitRepository $produitRepository;
-    private ClientRepository $clientRepository;
-    private ModePaiementRepository $modePaiementRepository;
-
-    public function __construct()
-    {
-        $this->venteService = new VenteService();
-        $this->produitRepository = new ProduitRepository();
-        $this->clientRepository = new ClientRepository();
-        $this->modePaiementRepository = new ModePaiementRepository();
-    }
-
     public function index(): void
     {
-        $produits = $this->produitRepository->getAllProduit();
-        $clients = $this->clientRepository->getAllClient();
-        $modePaiements = $this->modePaiementRepository->getAllModePaiement();
+        $produits = ProduitRepository::getAllProduit();
+        $clients = ClientRepository::getAllClient();
+        $modePaiements = ModePaiementRepository::getAllModePaiement();
+
         $error = null;
 
-        require dirname(__DIR__).'/views/pos/StoreManager.html.php';
+        require dirname(__DIR__) . '/views/pos/StoreManager.html.php';
     }
 
     public function vendre(): void
@@ -49,6 +37,7 @@ class POSController
             $panier = [];
 
             foreach ($produitId as $index => $productId) {
+
                 $panier[] = [
                     'produit_id' => (int) $productId,
                     'qte_commande' => (int) $produitQts[$index]
@@ -57,7 +46,13 @@ class POSController
 
             $utilisateurId = $_SESSION['utilisateur']['id'];
 
-            $commandeId = $this->venteService->effectuerVente($clientId, $utilisateurId, $modeReglement, $panier, $montantVerse);
+            $commandeId = VenteService::effectuerVente(
+                $clientId,
+                $utilisateurId,
+                $modeReglement,
+                $panier,
+                $montantVerse
+            );
 
             header("Location: /pos?success=1&commande=$commandeId");
             exit;
@@ -66,11 +61,11 @@ class POSController
 
             $error = $e->getMessage();
 
-            $produits = $this->produitRepository->getAllProduit();
-            $clients = $this->clientRepository->getAllClient();
-            $modePaiements = $this->modePaiementRepository->getAllModePaiement();
+            $produits = ProduitRepository::getAllProduit();
+            $clients = ClientRepository::getAllClient();
+            $modePaiements = ModePaiementRepository::getAllModePaiement();
 
-            require dirname(__DIR__). '/views/pos/StoreManager.html.php';
+            require dirname(__DIR__) . '/views/pos/StoreManager.html.php';
         }
     }
 }
